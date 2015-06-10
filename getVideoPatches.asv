@@ -1,0 +1,20 @@
+%Returns the specified patches from the 
+%
+%
+function patches = getVideoPatches(videoURI, patchFrames, patchCoords)
+
+    %Create the video object
+    vidObj = VideoReader(videoURI);
+    patches = [];
+    [~,c] = size(patchFrames);
+    %
+    for i = 1:c
+        frameNum = patchFrames(i);
+        frame = read(vidObj, frameNum);
+        
+         patchCoord = patchCoords(i);
+         disp
+        
+        %frame =  frame(250:1000,1:750,:);
+        patches{i} = frame;
+    end
