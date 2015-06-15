@@ -1,0 +1,31 @@
+  vid = 'testVid2.3gp';
+   readerobj = VideoReader(vid);
+   for k=1:  readerobj.NumberOfFrames
+           I=read(readerobj,k);
+           if(k~= readerobj.NumberOfFrames)
+                 J=read(readerobj,k+1);
+                 sss=absdif(I,J);
+                 X(k)=sss;
+           end
+   end
+   disp('cat');
+   %Set Threshold
+   mean=mean2(X);
+   std=std2(X);
+   threshold=std+mean*4;
+   
+   %Extract KeyFrames
+   keyFrames = [];
+   for k=1: readerobj.NumberOfFrames
+       I = read(readerobj,k);
+       if(k~=readerobj.NumberOfFrames)
+        J = read(readerobj,k+1);
+        sss=absdif(I,J);
+           if(sss>mean)
+                keyFr
+                imshow(J);
+                %imwrite(J,strcat('D:\',Names{k+1}));
+           end
+       end
+   end
+   

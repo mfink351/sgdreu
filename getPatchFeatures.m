@@ -8,20 +8,16 @@ function patchFeatVect = getPatchFeatures(b)
     numCorners = 200;
     corners   = detectFASTFeatures(rgb2gray(b));
     strongest = selectStrongest(corners,numCorners);
-    [hog2, validPoints, ptVis] = extractHOGFeatures(b,strongest); 
+    [hog2, ~, ~] = extractHOGFeatures(b,strongest); 
     hogHist = mean(hog2);
-
-    %figure;
-    %imshow(b); hold on;
-    %plot(ptVis, 'Color', 'green');
 
     %Create Patch Feature Vector
     satSTD = std(satHist); valSTD = std(valHist); hogSTD = std(hogHist);
     satHist = vertcat(satHist, satSTD);
     valHist = vertcat(valHist, valSTD);
     hogHist = [hogHist hogSTD];
-    
 
     patchFeatVect = vertcat(satHist, valHist);
+    %disp(hogHist);
     patchFeatVect = vertcat(patchFeatVect, reshape(hogHist, [37 1]));
     %plot(patchFeatVect);
